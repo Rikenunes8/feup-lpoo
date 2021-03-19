@@ -15,7 +15,11 @@ public class ListDeduplicator implements GenericListDeduplicator{
      * but withou duplicates. The order of the numbers might
      * change.
      */
-    public List<Integer> deduplicate(List<Integer> list, GenericListSort sorter) {
+    private GenericListSort sorter;
+    public ListDeduplicator(GenericListSort sorter) {
+        this.sorter = sorter;
+    }
+    public List<Integer> deduplicate(List<Integer> list) {
         List<Integer> sorted = sorter.sort(list);
         List<Integer> unique = new ArrayList<>();
 

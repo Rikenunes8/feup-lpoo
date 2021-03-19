@@ -3,5 +3,5 @@ package com.aor.numbers;
 import java.util.List;
 
 public interface GenericListDeduplicator {
-    public List<Integer> deduplicate(List<Integer> list, GenericListSort sorter);
+    public List<Integer> deduplicate(List<Integer> list);
 }
