@@ -1,15 +1,11 @@
-import Elements.Wall;
-import Elements.Coin;
-import Elements.Door;
-import Elements.Position;
-import Elements.Monsters.AdjacentMonster;
-import Elements.Monsters.Monster;
-import Elements.Monsters.VertexMonster;
+package Game;
 
-import com.googlecode.lanterna.TerminalPosition;
-import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.graphics.TextGraphics;
+import Game.Elements.*;
+import Game.Elements.Monsters.Tower;
+import Game.Elements.Monsters.Enemy;
+import Game.Elements.Monsters.King;
+
+import Game.gui.GenericGUI;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -18,27 +14,28 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Room {
+public class Room extends Drawable {
     private int width;
     private int height;
     private List<Wall> walls;
     private List<Coin> coins;
-    private List<Monster> monsters;
+    private List<Enemy> enemies;
     private List<Door> doors;
 
 
-    public Room(int width, int height) {
+    public Room(int width, int height, String color) {
         this.width = width;
         this.height = height;
         this.walls = createWalls();
         this.coins = createCoins(10);
-        this.monsters = createMonsters(20);
+        this.enemies = createMonsters(20);
+        this.backColor = color;
     }
 
     public Room(String path) throws FileNotFoundException {
         walls = new ArrayList<>();
         coins = new ArrayList<>();
-        monsters = new ArrayList<>();
+        enemies = new ArrayList<>();
         doors = new ArrayList<>();
         readArena(path);
     }
@@ -48,9 +45,10 @@ public class Room {
         Scanner reader = new Scanner(arenaFile);
         String width = reader.nextLine();
         String height = reader.nextLine();
+        String color = reader.nextLine();
         this.width = Integer.parseInt(width);
         this.height = Integer.parseInt(height);
-
+        this.backColor = color;
         while  (reader.hasNextLine()) {
             String data = reader.nextLine();
             for (int col = 0; col < data.length(); col++) {
@@ -65,10 +63,10 @@ public class Room {
                         coins.add(new Coin(col, line));
                         break;
                     case 'A':
-                        monsters.add(new AdjacentMonster(col, line));
+                        enemies.add(new Tower(col, line));
                         break;
                     case 'V':
-                        monsters.add(new VertexMonster(col, line));
+                        enemies.add(new King(col, line));
                         break;
                     default:
                         break;
@@ -82,27 +80,30 @@ public class Room {
         return new Position(width, height);
     }
 
-    public void draw(TextGraphics graphics) {
+    public void draw(GenericGUI graphics) {
+        graphics.setBackgroundColor(this.backColor);
+        graphics.fillRectangle(0, 0, this.width, this.height);
         for (Wall wall:walls)
             wall.draw(graphics);
         for (Door door:doors)
             door.draw(graphics);
+        graphics.setBackgroundColor(this.backColor);
         for (Coin coin:coins)
             coin.draw(graphics);
-        for (Monster monster:monsters)
-            monster.draw(graphics);
+        for (Enemy enemy : enemies)
+            enemy.draw(graphics);
     }
 
-    private List<Monster> createMonsters(int nMonsters) {
+    private List<Enemy> createMonsters(int nMonsters) {
         Random random = new Random();
-        ArrayList<Monster> monsters = new ArrayList<>();
+        ArrayList<Enemy> enemies = new ArrayList<>();
         for (int i = 0; i < nMonsters; i++) {
             if (random.nextInt(2) == 0)
-                monsters.add(new AdjacentMonster(random.nextInt(width-2)+1, random.nextInt(height-2)+1));
+                enemies.add(new Tower(random.nextInt(width-2)+1, random.nextInt(height-2)+1));
             else
-                monsters.add(new VertexMonster(random.nextInt(width-2)+1, random.nextInt(height-2)+1));
+                enemies.add(new King(random.nextInt(width-2)+1, random.nextInt(height-2)+1));
         }
-        return monsters;
+        return enemies;
     }
 
     private List<Wall> createWalls() {
@@ -167,17 +168,17 @@ public class Room {
     }
 
     public void moveMonsters() {
-        for (Monster monster:monsters) {
-            Position pos = monster.move();
+        for (Enemy enemy : enemies) {
+            Position pos = enemy.move();
             if (canHeroMove(pos)) {
-                monster.setPosition(pos);
+                enemy.setPosition(pos);
             }
         }
     }
 
     public boolean verifiyMonstersPosition(Position position) {
-        for (Monster monster:monsters) {
-            if (monster.verifyMonsterPosition(position))
+        for (Enemy enemy : enemies) {
+            if (enemy.verifyMonsterPosition(position))
                 return true;
         }
         return false;

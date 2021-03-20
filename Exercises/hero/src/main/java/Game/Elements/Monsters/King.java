@@ -1,20 +1,22 @@
-package Elements.Monsters;
+package Game.Elements.Monsters;
 
-import Elements.Position;
-import com.googlecode.lanterna.SGR;
-import com.googlecode.lanterna.TerminalPosition;
-import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.graphics.TextGraphics;
+import Game.Elements.Position;
+
+import Game.gui.GenericGUI;
 
 import java.util.Random;
 
-public class VertexMonster extends Monster{
-    public VertexMonster(int x, int y) {super(x, y);}
+public class King extends Enemy {
+    public King(int x, int y) {
+        super(x, y, 20);
+        this.frontColor = "#00FFFF";
+        this.text = "V";
+    }
     @Override
-    public void draw(TextGraphics graphics) {
-        graphics.setForegroundColor(TextColor.Factory.fromString("#00FFFF"));
-        graphics.enableModifiers(SGR.BOLD);
-        graphics.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), "V");
+    public void draw(GenericGUI graphics) {
+        graphics.setForegroundColor(this.frontColor);
+        graphics.enableModifiers("BOLD");
+        graphics.putString(getPosition().getX(), getPosition().getY(), this.text);
     }
 
     private Position moveUp() {
@@ -55,5 +57,10 @@ public class VertexMonster extends Monster{
             case 6: return moveUpRight();
             default: return moveDownRight();
         }
+    }
+
+    @Override
+    public int getDamage() {
+        return 0;
     }
 }

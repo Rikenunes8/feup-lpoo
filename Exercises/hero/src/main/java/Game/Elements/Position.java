@@ -1,4 +1,4 @@
-package Elements;
+package Game.Elements;
 
 public class Position {
     private int x;

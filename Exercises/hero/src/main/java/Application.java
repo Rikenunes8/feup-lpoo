@@ -1,17 +1,12 @@
-import com.googlecode.lanterna.TextCharacter;
-import com.googlecode.lanterna.screen.Screen;
-import com.googlecode.lanterna.screen.TerminalScreen;
-import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
-import com.googlecode.lanterna.terminal.Terminal;
+import Game.Game;
+import Game.gui.LanternaGUI;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Application {
     public static void main(String[] args) {
         try {
-            Game game = new Game();
+            Game game = new Game(new LanternaGUI());
             game.run();
         }
         catch (IOException | InterruptedException e) {

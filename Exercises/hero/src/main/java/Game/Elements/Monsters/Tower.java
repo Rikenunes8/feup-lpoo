@@ -1,20 +1,22 @@
-package Elements.Monsters;
+package Game.Elements.Monsters;
 
-import Elements.Position;
-import com.googlecode.lanterna.SGR;
-import com.googlecode.lanterna.TerminalPosition;
-import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.graphics.TextGraphics;
+import Game.Elements.Position;
+
+import Game.gui.GenericGUI;
 
 import java.util.Random;
 
-public class AdjacentMonster extends Monster {
-    public AdjacentMonster(int x, int y) {super(x, y);}
+public class Tower extends Enemy {
+    public Tower(int x, int y) {
+        super(x, y, 10);
+        this.frontColor = "#00FFFF";
+        this.text = "A";
+    }
     @Override
-    public void draw(TextGraphics graphics) {
-        graphics.setForegroundColor(TextColor.Factory.fromString("#00FFFF"));
-        graphics.enableModifiers(SGR.BOLD);
-        graphics.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), "A");
+    public void draw(GenericGUI graphics) {
+        graphics.setForegroundColor(this.frontColor);
+        graphics.enableModifiers("BOLD");
+        graphics.putString(getPosition().getX(), getPosition().getY(), this.text);
     }
 
     private Position moveUp() {

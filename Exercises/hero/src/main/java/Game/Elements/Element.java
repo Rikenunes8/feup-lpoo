@@ -1,8 +1,8 @@
-package Elements;
+package Game.Elements;
 
-import com.googlecode.lanterna.graphics.TextGraphics;
+import Game.gui.GenericGUI;
 
-public abstract class Element {
+public abstract class Element extends Drawable {
     private Position position;
     public Element(int x, int y) {
         position = new Position(x, y);
@@ -12,5 +12,5 @@ public abstract class Element {
     }
     public Position getPosition() {return position;}
 
-    public abstract void draw(TextGraphics graphics);
+    public abstract void draw(GenericGUI graphics);
 }
