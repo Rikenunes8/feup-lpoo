@@ -65,12 +65,6 @@ public class LanternaGUI implements GenericGUI {
         graphics.fillRectangle(new TerminalPosition(x, y), new TerminalSize(width, height), ' ');
     }
 
-    /*
-    @Override
-    public String getBackgroundColor() {
-        return graphics.getBackgroundColor().toString();
-    }*/
-
     @Override
     public void putString(int x, int y, String str) {
         graphics.putString(new TerminalPosition(x, y), str);

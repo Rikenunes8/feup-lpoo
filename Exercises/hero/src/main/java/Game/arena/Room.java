@@ -1,11 +1,16 @@
-package Game;
+package Game.arena;
 
-import Game.Elements.*;
+
+import Game.Elements.Coin;
+import Game.Elements.Door;
+import Game.Elements.Drawable;
 import Game.Elements.Monsters.Tower;
 import Game.Elements.Monsters.Enemy;
 import Game.Elements.Monsters.King;
+import Game.Elements.Wall;
 
 import Game.gui.GenericGUI;
+import Game.utils.Position;
 
 import java.io.File;
 import java.io.FileNotFoundException;

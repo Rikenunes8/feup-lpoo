@@ -11,7 +11,6 @@ public interface GenericGUI {
     void setBackgroundColor(String color);
     void setForegroundColor(String color);
     void fillRectangle(int x, int y, int width, int height);
-    //String getBackgroundColor();
     void putString(int x, int y, String str);
     void enableModifiers(String modifier);
     void clearScreen();

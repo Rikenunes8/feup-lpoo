@@ -1,6 +1,7 @@
 package Game.Elements;
 
 import Game.gui.GenericGUI;
+import Game.utils.Position;
 
 public class Hero extends Element {
     private int energy;

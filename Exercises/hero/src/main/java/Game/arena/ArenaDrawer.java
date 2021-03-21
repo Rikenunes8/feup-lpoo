@@ -1,4 +1,4 @@
-package Game;
+package Game.arena;
 
 import Game.gui.GenericGUI;
 

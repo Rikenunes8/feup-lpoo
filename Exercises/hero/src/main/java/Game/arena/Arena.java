@@ -1,7 +1,7 @@
-package Game;
+package Game.arena;
 
 import Game.Elements.Hero;
-import Game.Elements.Position;
+import Game.utils.Position;
 
 import Game.gui.GenericGUI.Movement;
 

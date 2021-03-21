@@ -1,6 +1,6 @@
 package Game.Elements.Monsters;
 
-import Game.Elements.Position;
+import Game.utils.Position;
 
 import Game.gui.GenericGUI;
 

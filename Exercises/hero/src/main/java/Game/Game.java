@@ -1,5 +1,7 @@
 package Game;
 
+import Game.arena.Arena;
+import Game.arena.ArenaDrawer;
 import Game.gui.GenericGUI;
 import Game.gui.GenericGUI.Movement;
 
@@ -29,7 +31,7 @@ public class Game {
           |D|         |4|
          */
         this.state = State.CONTINUE;
-        //arena = new Game.Arena(40, 20);
+        //arena = new Game.arena.Arena(40, 20);
         arena = new Arena(arenaPath);
         arenaDrawer = new ArenaDrawer();
         this.gui = gui;
