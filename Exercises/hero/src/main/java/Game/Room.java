@@ -152,7 +152,7 @@ public class Room extends Drawable {
         for (Door door:doors)
             if (door.getPosition().equals(position))
                 return false;
-        if (position.getX() > width-1 || position.getY() > height-1)
+        if (position.getX() > width-1 || position.getY() > height-1 || position.getX() < 0 || position.getY() < 0)
             return false;
         return true;
     }

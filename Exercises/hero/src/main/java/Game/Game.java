@@ -23,6 +23,11 @@ public class Game {
     public Game(GenericGUI gui) throws  IOException {
         //arenaPath = "files//rooms//room";
         arenaPath = "files//rooms2//room";
+        /*
+          |U|         |1|
+        |L|C|R|     |2|0|3|
+          |D|         |4|
+         */
         this.state = State.CONTINUE;
         //arena = new Game.Arena(40, 20);
         arena = new Arena(arenaPath);
