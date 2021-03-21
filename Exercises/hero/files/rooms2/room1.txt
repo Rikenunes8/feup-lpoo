@@ -1,0 +1,23 @@
+40
+20
+#228B22
+########################################
+#                                   O  #
+#        A                             #
+#         O              O             #
+#        O O           O O      V      #
+#        O O           O O             #
+#   O    O O           O O             #
+#        O OA          O O   A         #
+#        O O           O O             #
+#        O O           O O             #
+#        O O           O O             #
+#        O O        V  O OV            #
+#        O O           O O             #
+#       AO O           O O     V       #
+#        O O           O OA            #
+#         O O O O O O O O              #
+#          O O O O O O O               #
+#             V             O          #
+#                                      #
+####################?###################

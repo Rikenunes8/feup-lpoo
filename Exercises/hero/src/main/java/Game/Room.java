@@ -31,6 +31,45 @@ public class Room extends Drawable {
         this.enemies = createMonsters(20);
         this.backColor = color;
     }
+    // Creators
+    private List<Enemy> createMonsters(int nMonsters) {
+        Random random = new Random();
+        ArrayList<Enemy> enemies = new ArrayList<>();
+        for (int i = 0; i < nMonsters; i++) {
+            if (random.nextInt(2) == 0)
+                enemies.add(new Tower(random.nextInt(width-2)+1, random.nextInt(height-2)+1));
+            else
+                enemies.add(new King(random.nextInt(width-2)+1, random.nextInt(height-2)+1));
+        }
+        return enemies;
+    }
+    private List<Wall> createWalls() {
+        List<Wall> walls = new ArrayList<>();
+
+        for (int c = 0; c < width; c++) {
+            walls.add(new Wall(c, 0));
+            walls.add(new Wall(c, height-1));
+        }
+
+        for (int r = 1; r < height-1; r++) {
+            walls.add(new Wall(0, r));
+            walls.add(new Wall(width-1, r));
+        }
+        return walls;
+    }
+    private List<Coin> createCoins(int nCoins) {
+        Random random = new Random();
+        ArrayList<Coin> coins = new ArrayList<>();
+        for (int i = 0; i < nCoins; i++) {
+            Coin coin;
+            do {
+                coin = new Coin(random.nextInt(width - 2) + 1, random.nextInt(height - 2) + 1);
+            } while (coins.contains(coin));
+            coins.add(coin);
+        }
+        return coins;
+    }
+
 
     public Room(String path) throws FileNotFoundException {
         walls = new ArrayList<>();
@@ -94,45 +133,7 @@ public class Room extends Drawable {
             enemy.draw(graphics);
     }
 
-    private List<Enemy> createMonsters(int nMonsters) {
-        Random random = new Random();
-        ArrayList<Enemy> enemies = new ArrayList<>();
-        for (int i = 0; i < nMonsters; i++) {
-            if (random.nextInt(2) == 0)
-                enemies.add(new Tower(random.nextInt(width-2)+1, random.nextInt(height-2)+1));
-            else
-                enemies.add(new King(random.nextInt(width-2)+1, random.nextInt(height-2)+1));
-        }
-        return enemies;
-    }
 
-    private List<Wall> createWalls() {
-        List<Wall> walls = new ArrayList<>();
-
-        for (int c = 0; c < width; c++) {
-            walls.add(new Wall(c, 0));
-            walls.add(new Wall(c, height-1));
-        }
-
-        for (int r = 1; r < height-1; r++) {
-            walls.add(new Wall(0, r));
-            walls.add(new Wall(width-1, r));
-        }
-        return walls;
-    }
-
-    private List<Coin> createCoins(int nCoins) {
-        Random random = new Random();
-        ArrayList<Coin> coins = new ArrayList<>();
-        for (int i = 0; i < nCoins; i++) {
-            Coin coin;
-            do {
-                coin = new Coin(random.nextInt(width - 2) + 1, random.nextInt(height - 2) + 1);
-            } while (coins.contains(coin));
-            coins.add(coin);
-        }
-        return coins;
-    }
 
     public boolean retrieveCoins(Position position) {
         for (Coin coin:coins) {
@@ -158,7 +159,8 @@ public class Room extends Drawable {
 
     public int doorAvailable(Position position) {
         for (int i = 0; i < doors.size(); i++)
-            if (doors.get(i).getPosition().equals(position))
+            if (doors.get(i).getPosition().equals(position) &&
+                allCoinsCollected())
                 return i;
         return -1;
     }
@@ -176,12 +178,13 @@ public class Room extends Drawable {
         }
     }
 
-    public boolean verifiyMonstersPosition(Position position) {
+    public int verifiyMonstersPosition(Position position) {
+        int damage = 0;
         for (Enemy enemy : enemies) {
             if (enemy.verifyMonsterPosition(position))
-                return true;
+                damage += enemy.getDamage();
         }
-        return false;
+        return damage;
     }
 
     public boolean allCoinsCollected() {

@@ -60,7 +60,7 @@ public class Arena {
             case right:
                 moveHero(hero.move(movement));
                 moveMonsters();
-                verifiyMonstersPosition();
+                updateDamage();
                 break;
 
         }
@@ -99,14 +99,12 @@ public class Arena {
     private boolean canHeroMove(Position position) {
         return rooms.get(room).canHeroMove(position);
     }
-
     private void moveMonsters() {
         rooms.get(room).moveMonsters();
     }
-
-    public void verifiyMonstersPosition() {
-        if (rooms.get(room).verifiyMonstersPosition(hero.getPosition()))
-            hero.setEnergy(hero.getEnergy()-20);
+    public void updateDamage() {
+        int damage = rooms.get(room).verifiyMonstersPosition(hero.getPosition());
+        hero.decreaseEnergy(damage);
     }
 
     public void goToNextRoom(int door) {
@@ -128,7 +126,6 @@ public class Arena {
         gameOver = hero.getEnergy() <= 0;
         return gameOver;
     }
-
     public boolean allCoinsCollected() {
         win = true;
         for (Room room:rooms) {

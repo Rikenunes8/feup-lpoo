@@ -3,7 +3,6 @@ package Game;
 import Game.gui.GenericGUI;
 import Game.gui.GenericGUI.Movement;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Game {
@@ -21,8 +20,9 @@ public class Game {
     private final String arenaPath;
 
 
-    public Game(GenericGUI gui) throws  IOException, FileNotFoundException{
-        arenaPath = "files//rooms//room";
+    public Game(GenericGUI gui) throws  IOException {
+        //arenaPath = "files//rooms//room";
+        arenaPath = "files//rooms2//room";
         this.state = State.CONTINUE;
         //arena = new Game.Arena(40, 20);
         arena = new Arena(arenaPath);

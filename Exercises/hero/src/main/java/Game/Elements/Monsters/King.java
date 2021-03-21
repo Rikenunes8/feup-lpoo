@@ -58,9 +58,4 @@ public class King extends Enemy {
             default: return moveDownRight();
         }
     }
-
-    @Override
-    public int getDamage() {
-        return 0;
-    }
 }
