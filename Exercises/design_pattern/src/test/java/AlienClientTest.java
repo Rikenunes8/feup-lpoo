@@ -1,30 +1,14 @@
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class AlienClientTest {
-    private StringRecipe getRecipe() {
-        StringInverter si = new StringInverter();
-        StringCaseChanger cc = new StringCaseChanger();
-        StringReplacer sr = new StringReplacer('A', 'X');
-
-        List<StringTransformer> transformers = new ArrayList<>();
-        transformers.add(si);
-        transformers.add(cc);
-        transformers.add(sr);
-
-        StringRecipe recipe = new StringRecipe(transformers);
-        return recipe;
-    }
 
     @Test
     public void ferengiAlreadyOpened() {
         StringBar stringBar = new StringBar();
         StringDrink drink = new StringDrink("AbCd-aBcD");
-        StringRecipe recipe = getRecipe();
+        StringRecipe recipe = Util.getRecipe();
 
         FerengiClient client = new FerengiClient();
 
@@ -38,7 +22,7 @@ class AlienClientTest {
     public void ferengiStartClosed() {
         StringBar stringBar = new StringBar();
         StringDrink drink = new StringDrink("AbCd-aBcD");
-        StringRecipe recipe = getRecipe();
+        StringRecipe recipe = Util.getRecipe();
 
         FerengiClient client = new FerengiClient();
         stringBar.addObserver(client); // this is important!
@@ -55,7 +39,7 @@ class AlienClientTest {
     public void romulan() {
         StringBar stringBar = new StringBar();
         StringDrink drink = new StringDrink("AbCd-aBcD");
-        StringRecipe recipe = getRecipe();
+        StringRecipe recipe = Util.getRecipe();
 
         RomulanClient client = new RomulanClient();
 
